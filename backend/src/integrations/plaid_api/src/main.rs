@@ -1,28 +1,10 @@
 mod app_errors;
+mod requests;
 use std::env;
 
-use app_errors::AppError;
-
 fn main() {
-    let mut client_id: String = String::new();
-    let mut secret: String = String::new();
+    let mut client_id: String = env::var("plaid_sandbox_client_id").expect("Failed to retreive the client id from the environment, cannot continue.");
+    let mut secret: String = env::var("plaid_sandbox_secret").expect("Failed to retreive the secret from the environment, cannot continue.");
 
-    match env::var("plaid_sandbox_client_id"){
-        Ok(val) => {
-            client_id = val;
-        }
-        Err(e) => {
-            AppError::Credentials(e.to_string());
-        }
-    }
-    match env::var("plaid_sandbox_secret"){
-        Ok(val) => {
-            secret = val;
-        }
-        Err(e) => {
-            AppError::Credentials(e.to_string());
-        }
-    }
 
-    
 }
